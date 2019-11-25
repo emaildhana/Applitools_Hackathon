@@ -15,8 +15,7 @@ namespace Applitools_Hackathon
         static RemoteWebDriver driver;
         static LoginPageUIElements loginPageUIElements;
         static LandingPage landingPage;
-        static Eyes eyes;
-        string appName = "Applitools Hackathon"; 
+                string appName = "Applitools Hackathon"; 
 
         [ClassInitialize]
         public static void InitializeTest(TestContext testContext)
@@ -25,20 +24,21 @@ namespace Applitools_Hackathon
             options.AddArgument("--start-maximized");
 
             driver = new ChromeDriver(options);
-            driver.Navigate().GoToUrl("https://demo.applitools.com/hackathon.html"); //Version 1
-            //driver.Navigate().GoToUrl("https://demo.applitools.com/hackathonV2.html"); //Version 2
+            //driver.Navigate().GoToUrl("https://demo.applitools.com/hackathon.html"); //Version 1
+            driver.Navigate().GoToUrl("https://demo.applitools.com/hackathonV2.html"); //Version 2
 
             loginPageUIElements = new LoginPageUIElements(driver);
             landingPage = new LandingPage(driver);
-            eyes = new Eyes();
-
-            eyes.ApiKey = Environment.GetEnvironmentVariable("APPLITOOLS_HACKATHON_API_KEY");
         }
 
         [TestMethod]
         [Description("Login Page UI Elements Test")]
         public void Test1_LoginPageUIElementsTest()
         {
+
+            Eyes eyes = new Eyes();
+            eyes.ApiKey = Environment.GetEnvironmentVariable("APPLITOOLS_HACKATHON_API_KEY");
+
             eyes.Open(driver, appName, "Login Page UI Elements Test");
             eyes.CheckWindow();
             eyes.Close();
@@ -55,10 +55,13 @@ namespace Applitools_Hackathon
 
         public void Test2_DataDrivenTest(string userNameValue, string passwordValue, string alertMsgValue, string urlValue, string testNameValue)
         {
+            Eyes eyes = new Eyes();
+            eyes.ApiKey = Environment.GetEnvironmentVariable("APPLITOOLS_HACKATHON_API_KEY");
             BatchInfo batchInfo = new BatchInfo("Data Driven Test");
             batchInfo.Id = "DataDrivenTest";
-            eyes.Batch = batchInfo; 
-            eyes.Open(driver,appName, testNameValue); 
+            eyes.Batch = batchInfo;
+            string testValue = $"Data Driven Test - {testNameValue}";
+            eyes.Open(driver,appName, testValue); 
             InduceDelay(2);
             Console.WriteLine($"user name {userNameValue} - password {passwordValue} - alert msg {alertMsgValue}");
 
@@ -98,6 +101,9 @@ namespace Applitools_Hackathon
         [Description("Table Sort Test")]
         public void Test3_TableSortTest()
         {
+            Eyes eyes = new Eyes();
+            eyes.ApiKey = Environment.GetEnvironmentVariable("APPLITOOLS_HACKATHON_API_KEY");
+
             InduceDelay(1);
             eyes.ForceFullPageScreenshot = true; 
             eyes.Open(driver, appName, "Table Sort Test");
@@ -114,6 +120,9 @@ namespace Applitools_Hackathon
         [Description("Canvas Chart Test")]
         public void Test4_CanvasChartTest()
         {
+            Eyes eyes = new Eyes();
+            eyes.ApiKey = Environment.GetEnvironmentVariable("APPLITOOLS_HACKATHON_API_KEY");
+
             BatchInfo batchInfo = new BatchInfo("Canvas Chart Test");
             batchInfo.Id = "CanvasChartTest";
 
@@ -124,11 +133,9 @@ namespace Applitools_Hackathon
             landingPage.compareExpensesBtn.Click();
             InduceDelay(1);
             eyes.CheckWindow();
-
-            //Note: Have not automated the validation of bar chart, since could not figure out a way to read the data in canvas tag
-
+            eyes.Close();
+            
             eyes.Open(driver, appName, "Canvas Chart Test - Next Year");
-            InduceDelay(1);
             landingPage.showNextYrDataBtn.Click();
             InduceDelay(1);
             eyes.CheckWindow();
@@ -141,9 +148,12 @@ namespace Applitools_Hackathon
         [Description("Dynamic Content Test")]
         public void Test5_DynamicContestTest()
         {
+            Eyes eyes = new Eyes();
+            eyes.ApiKey = Environment.GetEnvironmentVariable("APPLITOOLS_HACKATHON_API_KEY");
+
             eyes.Open(driver, appName, "Dynamic Content Test"); 
-            driver.Navigate().GoToUrl("https://demo.applitools.com/hackathon.html?showAd=true");
-            //driver.Navigate().GoToUrl("https://demo.applitools.com/hackathonV2.html?showAd=true");
+            //driver.Navigate().GoToUrl("https://demo.applitools.com/hackathon.html?showAd=true");
+            driver.Navigate().GoToUrl("https://demo.applitools.com/hackathonV2.html?showAd=true");
             loginPageUIElements.userNameInput.SendKeys("abcd");
             loginPageUIElements.passwordInput.SendKeys("abcd");
             loginPageUIElements.loginBtn.Click();
