@@ -23,7 +23,7 @@ Please download this repository and open it using visual studio professional.
 
 ## Instructions: 
 
-1.	After downloading the repository, install the NuGet packages mentioned above and build the solution. 
+1.	After opening the solution "Applitools_Hackathon.sln" using visual studio, install the NuGet packages mentioned above and build the solution. 
 
 2.	Open the Test Explorer (Test – Test Explorer)
 
