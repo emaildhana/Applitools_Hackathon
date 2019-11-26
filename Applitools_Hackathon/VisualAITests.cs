@@ -120,6 +120,8 @@ namespace Applitools_Hackathon
         [Description("Canvas Chart Test")]
         public void Test4_CanvasChartTest()
         {
+
+
             Eyes eyes = new Eyes();
             eyes.ApiKey = Environment.GetEnvironmentVariable("APPLITOOLS_HACKATHON_API_KEY");
 
@@ -133,14 +135,16 @@ namespace Applitools_Hackathon
             landingPage.compareExpensesBtn.Click();
             InduceDelay(1);
             eyes.CheckWindow();
-            eyes.Close();
+            eyes.CloseAsync();
+
             
             eyes.Open(driver, appName, "Canvas Chart Test - Next Year");
             landingPage.showNextYrDataBtn.Click();
+
             InduceDelay(1);
             eyes.CheckWindow();
 
-            eyes.Close();
+            eyes.CloseAsync();
             eyes.AbortIfNotClosed();
         }
 
@@ -148,15 +152,13 @@ namespace Applitools_Hackathon
         [Description("Dynamic Content Test")]
         public void Test5_DynamicContestTest()
         {
+            
             Eyes eyes = new Eyes();
             eyes.ApiKey = Environment.GetEnvironmentVariable("APPLITOOLS_HACKATHON_API_KEY");
 
             eyes.Open(driver, appName, "Dynamic Content Test"); 
             //driver.Navigate().GoToUrl("https://demo.applitools.com/hackathon.html?showAd=true");
             driver.Navigate().GoToUrl("https://demo.applitools.com/hackathonV2.html?showAd=true");
-            loginPageUIElements.userNameInput.SendKeys("abcd");
-            loginPageUIElements.passwordInput.SendKeys("abcd");
-            loginPageUIElements.loginBtn.Click();
 
             InduceDelay(1);
             eyes.CheckWindow();
